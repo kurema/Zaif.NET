@@ -37,8 +37,7 @@ namespace ZaifNet
         /// </summary>
         /// <param name="cp">パラメーター。</param>
         /// <param name="callback">コールバック。</param>
-        /// <returns>レスポンスとして返されるJSON形式の文字列。</returns>
-        public async Task StartStream(CurrencyPairsEnum cp , Action<StreamingData> callback, CancellationToken token)
+        public async Task StartStream(CurrencyPairsEnum cp , Action<StreamingData,string> callback, CancellationToken token)
         {
             double nonce = (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds;
             
@@ -59,7 +58,7 @@ namespace ZaifNet
                         var json = tmpStr.Substring(0, index + 1);
                         tmpStr = tmpStr.Remove(0, index + 1);
                         var result = JsonConvert.DeserializeObject<StreamingData>(json);
-                        callback(result);
+                        callback(result,json);
                     }
                 }
             }
@@ -70,8 +69,7 @@ namespace ZaifNet
         /// </summary>
         /// <param name="param">パラメーター。</param>
         /// <param name="callback">コールバック。</param>
-        /// <returns>レスポンスとして返されるJSON形式の文字列。</returns>
-        public async Task StartStream(string param, Action<StreamingData> callback, CancellationToken token)
+        public async Task StartStream(string param, Action<StreamingData,string> callback, CancellationToken token)
         {
             double nonce = (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds;
 
@@ -92,7 +90,7 @@ namespace ZaifNet
                         var json = tmpStr.Substring(0,index + 1);
                         tmpStr = tmpStr.Remove(0,index + 1);
                         var result = JsonConvert.DeserializeObject<StreamingData>(json);
-                        callback(result);
+                        callback(result,json);
                     }
                 }
             }
