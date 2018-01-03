@@ -43,7 +43,7 @@ namespace ZaifNET.Tests
             var cs = new CancellationTokenSource();
             using (var stream = File.AppendText("btc_jpy.txt"))
             {
-                var res = api.StartStream("btc_jpy", s =>
+                var res = api.StartStream("btc_jpy", (s,t) =>
                 {
                     Console.WriteLine(s.LastPrice.Price);
                     stream.WriteLine(s.LastPrice.Price);
